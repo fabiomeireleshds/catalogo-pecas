@@ -469,7 +469,28 @@ const __FM_SYSTEM_SIGNATURE__ = {
 
 
 let senhaAdmin="91289819"
-let pecas=JSON.parse(localStorage.getItem("pecas"))||[]
+let pecas = []
+
+async function carregarPecas(){
+
+    try{
+
+        let resposta = await fetch("pecas.json")
+        let dados = await resposta.json()
+
+        pecas = dados
+
+        localStorage.setItem("pecas", JSON.stringify(dados))
+
+    }catch(e){
+
+        pecas = JSON.parse(localStorage.getItem("pecas")) || []
+
+    }
+
+}
+
+carregarPecas()
 let editando=null
 
 function limparCodigo(c){
